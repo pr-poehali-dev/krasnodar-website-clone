@@ -4,6 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -12,6 +13,7 @@ import Icon from '@/components/ui/icon';
 
 const Index = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const services = [
     {
@@ -154,12 +156,13 @@ const Index = () => {
               <a href="#about" className="text-white hover:text-secondary transition-colors">О нас</a>
               <a href="#contacts" className="text-white hover:text-secondary transition-colors">Контакты</a>
             </div>
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button className="bg-secondary text-primary hover:bg-secondary/90 font-semibold">
-                  Записаться
-                </Button>
-              </DialogTrigger>
+            <div className="flex items-center gap-4">
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button className="hidden md:inline-flex bg-secondary text-primary hover:bg-secondary/90 font-semibold">
+                    Записаться
+                  </Button>
+                </DialogTrigger>
               <DialogContent className="max-w-md">
                 <DialogHeader>
                   <DialogTitle className="text-2xl">Запись на сервис</DialogTitle>
@@ -202,7 +205,109 @@ const Index = () => {
                   </Button>
                 </div>
               </DialogContent>
-            </Dialog>
+              </Dialog>
+              
+              <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon" className="md:hidden text-white hover:text-secondary hover:bg-white/10">
+                    <Icon name="Menu" size={28} />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-80 bg-primary text-white border-secondary/20">
+                  <SheetHeader>
+                    <SheetTitle className="text-white flex items-center gap-2">
+                      <Icon name="Car" className="text-secondary" size={28} />
+                      <span className="text-xl">LUX AUTO SERVICE</span>
+                    </SheetTitle>
+                  </SheetHeader>
+                  <nav className="flex flex-col gap-6 mt-8">
+                    <a 
+                      href="#services" 
+                      className="text-lg text-white hover:text-secondary transition-colors py-2 border-b border-white/10"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Услуги
+                    </a>
+                    <a 
+                      href="#portfolio" 
+                      className="text-lg text-white hover:text-secondary transition-colors py-2 border-b border-white/10"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Портфолио
+                    </a>
+                    <a 
+                      href="#reviews" 
+                      className="text-lg text-white hover:text-secondary transition-colors py-2 border-b border-white/10"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Отзывы
+                    </a>
+                    <a 
+                      href="#blog" 
+                      className="text-lg text-white hover:text-secondary transition-colors py-2 border-b border-white/10"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Блог
+                    </a>
+                    <a 
+                      href="#about" 
+                      className="text-lg text-white hover:text-secondary transition-colors py-2 border-b border-white/10"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      О нас
+                    </a>
+                    <a 
+                      href="#contacts" 
+                      className="text-lg text-white hover:text-secondary transition-colors py-2 border-b border-white/10"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Контакты
+                    </a>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button className="w-full bg-secondary text-primary hover:bg-secondary/90 font-semibold mt-4">
+                          Записаться на сервис
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="max-w-md">
+                        <DialogHeader>
+                          <DialogTitle className="text-2xl">Запись на сервис</DialogTitle>
+                        </DialogHeader>
+                        <div className="space-y-4 mt-4">
+                          <div>
+                            <Label htmlFor="mobile-name">Имя</Label>
+                            <Input id="mobile-name" placeholder="Ваше имя" />
+                          </div>
+                          <div>
+                            <Label htmlFor="mobile-phone">Телефон</Label>
+                            <Input id="mobile-phone" placeholder="+7 (___) ___-__-__" />
+                          </div>
+                          <div>
+                            <Label htmlFor="mobile-service">Услуга</Label>
+                            <Select>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Выберите услугу" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="shinoservice">Шиномонтаж</SelectItem>
+                                <SelectItem value="detailing">Детейлинг</SelectItem>
+                                <SelectItem value="wheel-repair">Ремонт дисков</SelectItem>
+                                <SelectItem value="geometry">Правка геометрии</SelectItem>
+                                <SelectItem value="painting">Покраска дисков</SelectItem>
+                                <SelectItem value="diagnostics">Диагностика</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                          <Button className="w-full bg-secondary text-primary hover:bg-secondary/90 font-semibold">
+                            Отправить заявку
+                          </Button>
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+                  </nav>
+                </SheetContent>
+              </Sheet>
+            </div>
           </div>
         </div>
       </nav>
